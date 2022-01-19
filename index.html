@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Render Javascript</title>
+  </head>
+  <body>
+    <main class="app"></main>
+
+    <script>
+
+      // [Dados]
+
+      const canais = [
+        {
+            nome: 'Israel',
+            inscritos: 750,
+            videos: 55,
+            estrelas: 0
+        },
+        {
+            nome: 'João',
+            inscritos: 550,
+            videos: 35,
+            estrelas: 0
+        },
+        {
+            nome: 'Matheus',
+            inscritos: 490,
+            videos: 19,
+            estrelas: 0
+        },
+      ];
+
+      function handleFavorite(nomeCanal) {
+          canais.forEach((canal) => {
+              if(nomeCanal === canal.nome){
+                canal.estrelas = canal.estrelas + 1; 
+              }
+          })
+          render();
+      };
+
+      // ===============================================================
+      // [Lógica de renderização]
+
+      const buttonTemplate = function(canal) {
+        return `
+        <button onclick="handleFavorite('${canal.nome}')">
+            <span>${canal.nome}</span>
+            <span>${canal.inscritos} Inscritos</span>
+            <span>${canal.videos} Likes</span>
+            <span>${canal.estrelas} Marcaram como favorito</span>
+        </button>
+      `
+      };
+
+      // [Função de render]
+      
+      function render() {
+          
+        const tela = document.querySelector('.app')
+        tela.innerHTML = canais.map((canal)=> {
+            return buttonTemplate(canal);
+        }).join('');
+        // join agrupara o array, removendo as virgulas que possuem pelo fato do innerHTML considerar um toString
+      };
+      render();
+    </script>
+  </body>
+</html>
